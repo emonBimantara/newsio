@@ -1,8 +1,20 @@
 import Image from "next/image"
 import Link from "next/link"
 import Pagination from "@/components/UI/Pagination";
+import { newsService } from "@/service/news-service";
+import { DateFormat } from "@/utils/date-format";
 
-export default function HeroSection() {
+interface HeroProps {
+    headline: any;
+    currentIndex: number;
+    totalNews: number;
+    onNext: () => void;
+    onPrev: () => void;
+}
+
+export default function HeroSection({ headline, currentIndex, totalNews, onNext, onPrev } : HeroProps) {
+    if (!headline) return null
+
     return (
         <section className="flex flex-col mt-20">
 
@@ -11,13 +23,9 @@ export default function HeroSection() {
                     <article className="flex flex-col gap-5">
                         <p className="text-lg text-gray-600 font-semibold">Headline</p>
 
-                        <h1 className="font-bold text-4xl">
-                            Respons PSSI Soal Opsi Pindah dari GBK jika Lolos Babak 3 Kualifikasi
-                        </h1>
+                        <h1 className="font-bold text-4xl">{headline.title}</h1>
 
-                        <p className="text-gray-600 text-lg">
-                            Ketua Badan Tim Nasional (BTN) PSSI Sumardji merespons peluang Timnas Indonesia pindah dari Stadion Utama Gelora Bung Karno (GBK) apabila lolos ke putaran ketiga Kualifikasi Piala Dunia 2026.
-                        </p>
+                        <p className="text-gray-600 text-lg">{headline.contentSnippet} </p>
 
                         <div className="dateTime flex gap-2">
                             <Image
@@ -27,11 +35,12 @@ export default function HeroSection() {
                                 height={10}
                             />
 
-                            <p className="text-gray-600">22 Januari 2024</p>
+                            <p className="text-gray-600">{DateFormat(headline.isoDate)}</p>
                         </div>
 
                         <Link
-                            href="/news/1"
+                            href={headline.link}
+                            target="_blank"
                             className="text-[#0090FF] flex gap-2 font-semibold"
                         >
                             Baca Selengkapnya
@@ -41,17 +50,22 @@ export default function HeroSection() {
 
                 <div className="img">
                     <Image
-                        src="/heroImg.png"
+                        src={headline.image.large}
                         alt="Hero Img"
                         width={700}
-                        height={10}
+                        height={450}
                         className="rounded-xl"
                     />
                 </div>
             </div>
 
             <div className="flex justify-center mt-15">
-                <Pagination />
+                <Pagination 
+                    current={currentIndex + 1} 
+                    total={totalNews} 
+                    onNext={onNext} 
+                    onPrev={onPrev} 
+                />
             </div>
         </section>
     )

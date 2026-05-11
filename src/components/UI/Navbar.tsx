@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { NAV_CATEGORIES } from "@/const/navigation"
+import { NAV_CATEGORIES } from "@/utils/navigation"
 import { usePathname } from "next/navigation"
 import Link from "next/link";
 
@@ -22,11 +22,11 @@ export default function Navbar() {
 
             <div className="category flex gap-5">
                 {NAV_CATEGORIES.map((cat) => {
-                    const isActive = pathname == cat.slug
+                    const isActive = pathname === `/${cat.slug}`
 
                     return (
                         <Link
-                            href={cat.slug}
+                            href={`/${cat.slug}`}
                             className={`
                                 text-md font-medium transition-all duration-200 hover:text-[#0090FF]
                                 ${isActive 
