@@ -28,7 +28,7 @@ export default function Navbar() {
                         <Link
                             href={cat.slug}
                             className={`
-                                text-md font-medium transition-all duration-200 hover:text-blue-600 
+                                text-md font-medium transition-all duration-200 hover:text-[#0090FF]
                                 ${isActive 
                                     ? "text-#0090FF font-bold" 
                                     : "text-gray-500"
