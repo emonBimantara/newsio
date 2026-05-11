@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import Pagination from "@/components/Pagination";
+import Pagination from "@/components/UI/Pagination";
 
 export default function HeroSection() {
     return (
